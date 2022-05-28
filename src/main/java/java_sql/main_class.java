@@ -20,19 +20,25 @@ public class main_class {
 	public static void main(String[] args) throws SQLException {
 		Connection conn = databaseHelper.DbConnect("movies");
 		
-		ShowAllTables(conn);
+		//ShowAllTables(conn);
 		
-		updateActors(conn, "Hedvig", "Dancing", 45);
+		updateActor(conn, "Hedvig", "Dancing", 45);
 		
-		ShowAllTables(conn);
+		//ShowAllTables(conn);
 		
-		createActor(conn,"Goran",67,"driving");
+		//createActor(conn,"Nisse",67,"driving");
 		
-		ShowAllTables(conn);
+		//ShowAllTables(conn);
 		
-		deleteActor(conn, "Sean");
+		//deleteActor(conn, "Sean");
 		
-		ShowAllTables(conn);
+		//ShowAllTables(conn);
+		
+		//readActors(conn);
+		
+		updateActorsSkill(conn, "Nisse", "boxing");
+		
+		updateActorsAge(conn, "Nisse", 0);
 		
 
 //		String jsonDoc = "{" + myActors.toJson() + ", " + myAddresses.toJson() + "}";
@@ -85,15 +91,6 @@ public class main_class {
 		
 	}
 	
-	private static void updateActors(Connection conn, String name, String newSkill, int newAge) {
-		actors myActors = new actors(conn);
-
-		int nrUpdates = myActors.updateActors(name, newSkill, newAge);
-		System.out.println("Nr of updated actors : " + nrUpdates);
-		
-//		antal = myActors.updateActorsSkill("s%", "växjö");
-//		System.out.println("uppdaterat : " + antal);		
-	}
 	
 	private static void createActor(Connection conn, String name, int age, String skill) {
 		actors myActor = new actors(conn);
@@ -103,7 +100,38 @@ public class main_class {
 		
 	}
 	
+	private static void readActors(Connection conn) {
+		actors myActors = new actors(conn);
+		String jsonDoc = "{" + myActors.toJson() + "}";
+		
+		System.out.println(jsonDoc);
+		
+	}
+	
+	private static void updateActor(Connection conn, String name, String newSkill, int newAge) {
+		actors myActors = new actors(conn);
 
+		int nrUpdates = myActors.updateActor(name, newSkill, newAge, "all");
+		System.out.println("Nr of updated actors : " + nrUpdates);
+				
+	}
+	
+	private static void updateActorsSkill(Connection conn, String name, String newSkill) {
+		actors myActors = new actors(conn);
+
+		int nrUpdates = myActors.updateActor(name, newSkill, 0, "skills");
+		System.out.println("Nr of updated actors : " + nrUpdates);
+				
+	}
+	
+	private static void updateActorsAge(Connection conn, String name, int newAge) {
+		actors myActors = new actors(conn);
+
+		int nrUpdates = myActors.updateActor(name, "", newAge, "age");
+		System.out.println("Nr of updated actors : " + nrUpdates);
+				
+	}
+	
 	private static void deleteActor(Connection conn, String name) {
 		actors myActor = new actors(conn);
 		

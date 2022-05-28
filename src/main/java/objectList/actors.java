@@ -14,6 +14,12 @@ public class actors {
 	private Connection _connection;
 	private ArrayList<actorBean> _actors;
 	
+	private String createActor = "INSERT INTO actor (name,age,skill) VALUES (?,?,?)";
+	private String readAllActors = "SELECT * FROM actor";
+	private String updateActors = "UPDATE actor SET age=?, skill=? WHERE name=?";
+	private String updateActorsSkill = "UPDATE actor SET skill=? WHERE skill=?";
+	private String deleteActors = "DELETE FROM actor WHERE name=?";
+	
 	public actors(Connection cn) {
 		this._connection = cn;
 		this._actors = new ArrayList<actorBean>();
@@ -21,13 +27,11 @@ public class actors {
 	}
 	
 	public ArrayList<actorBean> getActors() {
-		String qry = "select * from actor";
-
 		if (this._actors.size() > 0) 
 			return this._actors;
 			
 		this._actors = new ArrayList<actorBean>(); //@ct why initiate a new list again?
-		try (PreparedStatement myQry = this._connection.prepareStatement(qry)) { //@ct why try inside ()?
+		try (PreparedStatement myQry = this._connection.prepareStatement(readAllActors)) { //@ct why try inside ()?
 			runQuery(myQry);
 		} catch (SQLException e) {
 			System.out.println("getActors exception for statement");
@@ -35,6 +39,71 @@ public class actors {
 		}
 		
 		return this._actors;
+	}
+	
+	public int createActor(String name, int age, String skill) {
+		   
+		int count = -1;
+		try (PreparedStatement myQry = this._connection.prepareStatement(createActor)) {
+			myQry.setString(1, name);
+			myQry.setInt(2, age);
+			myQry.setString(3, skill);
+			count = myQry.executeUpdate();
+			
+		} catch (SQLException e) {
+			System.out.println("getActors exception for statement");
+			e.printStackTrace();
+		}
+		
+		return count;
+	}
+	
+	public int updateActors(String name, String newSkill, int newAge) {
+		   
+		int count = -1;
+		try (PreparedStatement myQry = this._connection.prepareStatement(updateActors)) {
+			myQry.setInt(1, newAge);
+			myQry.setString(2, newSkill);
+			myQry.setString(3, name);
+			count = myQry.executeUpdate();
+			
+		} catch (SQLException e) {
+			System.out.println("getActors exception for statement");
+			e.printStackTrace();
+		}
+		
+		return count;
+	}
+	
+	public int updateActorsSkill(String oldSkill, String newSkill) {
+		   
+		int count = -1;
+		try (PreparedStatement myQry = this._connection.prepareStatement(updateActorsSkill)) {
+			myQry.setString(1, newSkill);
+			myQry.setString(2, oldSkill);
+			count = myQry.executeUpdate();
+			
+		} catch (SQLException e) {
+			System.out.println("getActors exception for statement");
+			e.printStackTrace();
+		}
+		
+		return count;
+	}
+	
+	public int deleteActor(String name) {
+		   
+		int count = -1;
+		try (PreparedStatement myQry = this._connection.prepareStatement(deleteActors)) {
+			myQry.setString(1, name);
+			count = myQry.executeUpdate();
+			
+		} catch (SQLException e) {
+			System.out.println("getActors exception for statement");
+			e.printStackTrace();
+		}
+		
+		return count;
 	}
 	
 	public String toJson() {

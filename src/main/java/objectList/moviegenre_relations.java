@@ -44,7 +44,7 @@ public class moviegenre_relations {
 		}
 
 		return jsonHelper
-				.toJsonArray("MovieGenres", beansContent);
+				.toJsonArray("MovieGenreRelations", beansContent);
 	}
 	
 	private moviegenreBean buildMoviegenre(ResultSet rs) {

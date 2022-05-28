@@ -44,7 +44,7 @@ public class movieactor_relations {
 		}
 
 		return jsonHelper
-				.toJsonArray("MovieActors", beansContent);
+				.toJsonArray("MovieActorRelations", beansContent);
 	}
 	
 	private movieactorBean buildMovieactor(ResultSet rs) {
@@ -72,7 +72,7 @@ public class movieactor_relations {
 		try (ResultSet rs = query.executeQuery()) {
 			buildMovieactors(rs);
 		} catch (SQLException e) {
-			System.out.println("getActors exception for result set");
+			System.out.println("getMovieActorRelations exception for result set");
 			e.printStackTrace();
 		}
 

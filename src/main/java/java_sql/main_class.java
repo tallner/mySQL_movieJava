@@ -67,21 +67,40 @@ public class main_class {
             System.out.println(" |**********************| ");
             System.out.println(" 0. Show all tables"); // all tables in database
             
+            //objects
             System.out.println(" 1. Create new actor "); //
             System.out.println(" 2. Read all actors"); //
             System.out.println(" 3. Update an actor"); //change skill and age
             System.out.println(" 4. Update an actors age"); //
             System.out.println(" 5. Update an actors skill"); //
             System.out.println(" 6. Delete an actor"); //
-
-            System.out.println(" 7. Create movie"); //
-            System.out.println(" 8. Delete movie");//
-            System.out.println(" 9. Read movies");//
             
-            System.out.println(" 10. Show all actors and their movies ");//
-            System.out.println(" 11. Show all movies and their actors ");//
-            System.out.println(" 0. Show movie information"); // general movieinformation
-            System.out.println(" 0. Show movie information"); // general movieinformation
+            System.out.println(" 7. Create new director "); //
+            System.out.println(" 8. Read all director"); //
+            System.out.println(" 9. Update a director city"); //
+            System.out.println(" 10. Delete a director"); //
+            
+            System.out.println(" 11. Create new genre "); //
+            System.out.println(" 12. Read all genre"); //
+            System.out.println(" 13. Update a genre"); //
+            System.out.println(" 14. Delete a genre"); //
+
+            System.out.println(" 15. Create movie"); //
+            System.out.println(" 16. Read movies");//
+            System.out.println(" 17. Update a movie length"); //
+            System.out.println(" 18. Delete movie");//
+            
+            //relations
+            System.out.println(" 19. Create actor to movie relation");//
+            System.out.println(" 20. Read actor to movie relation");//
+            
+            System.out.println(" 21. Create genre to movie relation");//
+            System.out.println(" 22. Read genre to movie relation");//
+            
+            //views
+            System.out.println(" 23. Read movie information ");//
+            System.out.println(" 24. Read actors and their movies"); //
+            System.out.println(" 25. Read movies and their actors"); //
             
 
             System.out.println(" 100. Exit ");
@@ -98,12 +117,11 @@ public class main_class {
                 userSel.next();
             }
 
-            //exit and close connection
+            //exit
             if(sel == 100) {
             	System.out.println("-Program ended----------");
             	break;
             }
-
 
             switch (sel) {
                 case 0 -> {
@@ -111,60 +129,41 @@ public class main_class {
                     ShowAllTables(conn);
                 }
 
-                //
+                //actors
                 case 1 -> {
                 	System.out.println("-Add new actor to database-");
-                	System.out.println("Name of actor: ");
-                    String name = userSel.next();
-                    System.out.println("Actors age: ");
-                    int age = userSel.nextInt();
-                    System.out.println("Actors skill: ");
-                    String skill = userSel.next();
+                	System.out.println("Name of actor: "); String name = userSel.next();
+                    System.out.println("Actors age: "); int age = userSel.nextInt();
+                    System.out.println("Actors skill: "); String skill = userSel.next();
 
                     createActor(conn,name,age,skill);
                 }
-
-                //
                 case 2 -> {
                 	System.out.println("-List all actors-");
                 	readActors(conn);
                 }
-                //
                 case 3 -> {
                 	System.out.println("-Update an actors age and skill-");
-                	System.out.println("Name of actor: ");
-                    String name = userSel.next();
-                    System.out.println("Actors new age: ");
-                    int age = userSel.nextInt();
-                    System.out.println("Actors new skill: ");
-                    String skill = userSel.next();
+                	System.out.println("Name of actor: "); String name = userSel.next();
+                    System.out.println("Actors new age: "); int age = userSel.nextInt();
+                    System.out.println("Actors new skill: ");String skill = userSel.next();
                     
                     updateActor(conn, name, skill, age);
                 }
-
-                //
                 case 4 -> {
                 	System.out.println("-Update an actors age-");
-                	System.out.println("Name of actor: ");
-                    String name = userSel.next();
-                    System.out.println("Actors new age: ");
-                    int age = userSel.nextInt();
+                	System.out.println("Name of actor: ");String name = userSel.next();
+                    System.out.println("Actors new age: ");int age = userSel.nextInt();
                    
                     updateActorsAge(conn, name, age);
                 }
-
-                //
                 case 5 -> {
                 	System.out.println("-Update an actors skill-");
-                	System.out.println("Name of actor: ");
-                    String name = userSel.next();
-                    System.out.println("Actors new skill: ");
-                    String skill = userSel.next();
+                	System.out.println("Name of actor: ");String name = userSel.next();
+                    System.out.println("Actors new skill: ");String skill = userSel.next();
                     
                     updateActorsSkill(conn, name, skill);
                 }
-
-                //
                 case 6 -> {
                 	System.out.println("-Delete an actor-");
                 	System.out.println("Name of actor: ");
@@ -172,9 +171,65 @@ public class main_class {
                                         
                     deleteActor(conn, name);
                 }
-
-                //
+                
+                
+                //directors
                 case 7 -> {
+                	System.out.println("-Add new director to database-");
+                	System.out.println("Name of director: "); String name = userSel.next();
+                    System.out.println("director city: "); String city = userSel.next();
+
+                    createDirector(conn, name, city);
+                }
+                case 8 -> {
+                	System.out.println("-List all director-");
+                	
+                	readDirectors(conn);
+                }
+                case 9 -> {
+                	System.out.println("-Update a directors city-");
+                	System.out.println("Name of director: "); String name = userSel.next();
+                    System.out.println("Directors new city: "); String city = userSel.next();
+                    
+                    updateDirectorCity(conn, name, city);
+                }
+                case 10 -> {
+                	System.out.println("-Delete director-");
+                	System.out.println("Name of director: ");String name = userSel.next();
+                   
+                    deleteDirector(conn, name);
+                }
+                
+                
+                //genres
+                case 11 -> {
+                	System.out.println("-Add new genre to database-");
+                	System.out.println("Name of genre: "); String genre = userSel.next();
+
+                    createGenre(conn, genre);
+                }
+                case 12 -> {
+                	System.out.println("-List all genres-");
+                	
+                	readGenres(conn);
+                }
+                case 13 -> {
+                	System.out.println("-Update a genre -");
+                	System.out.println("Name of genre: "); String genre = userSel.next();
+                    System.out.println("New genre: "); String newGenre = userSel.next();
+                    
+                    updateGenre(conn, genre, newGenre);
+                }
+                case 14 -> {
+                	System.out.println("-Delete genre-");
+                	System.out.println("Name of genre: ");String genre = userSel.next();
+                   
+                    deleteGenre(conn, genre);
+                }
+
+              
+                //movies
+                case 15 -> {
                 	System.out.println("-Create a movie-");
                 	System.out.println("Movie title: ");String title = userSel.next();
                 	System.out.println("Release year: ");int release_year = userSel.nextInt();
@@ -185,40 +240,70 @@ public class main_class {
                     
                 	createMovie(conn, title, release_year, length_minutes, director, actor, genre);
                 }
-
-                //
-                case 8 -> {
-                	System.out.println("-Delete movie-");
-                	System.out.println("Movie title: ");String title = userSel.next();
-                	
-              
-                    
-                	deleteMovie(conn, title);
-                    
-                }
-
-                //
-                case 9 -> {
+                case 16 -> {
                 	System.out.println("-Read all movies-");
                 	      
                 	readMovies(conn);
-                   
                 }
+                case 17 -> {
+                	System.out.println("-Update movie lenght-");
+                	System.out.println("Movie title: ");String title = userSel.next();
+                    System.out.println("New length: ");int length = userSel.nextInt();
+                    
+                    updateMovieLength(conn, title, length);
+                }
+                case 18 -> {
+                	System.out.println("-Delete movie-");
+                	System.out.println("Movie title: ");String title = userSel.next();
+                	
+                	deleteMovie(conn, title);
+                }
+                
+                
+              //relations
+                case 19 -> {
+                	System.out.println("-Create actor to movie relation-");
+                	System.out.println("Actor name: ");String actor_name = userSel.next();
+                	System.out.println("Movie title: ");String movie_title = userSel.next();
+                    
+                	createActorToMovieRelation(conn, actor_name, movie_title);
+                }
+                case 20 -> {
+                	System.out.println("-Read actor to movie relations-");
+                	
+                	readActorToMovieRelations(conn);
+                }
+                
 
-                //
-                case 10 -> {
-                	System.out.println("-Show actors and their movies-");
+                case 21 -> {
+                	System.out.println("-Create genre to movie relation-");
+                	System.out.println("Genre name: ");String genre = userSel.next();
+                	System.out.println("Movie title: ");String movie_title = userSel.next();
+                    
+                	createGenreToMovieRelation(conn, genre, movie_title);
+                }
+                case 22 -> {
+                	System.out.println("-Read genre to movie relations-");
+                	
+                	readGenreToMovieRelations(conn);
+                }
+                
+                
+                //views
+                case 23 -> {
+                	System.out.println("-Read movie information-");
+                	
+                	readMovieInfo(conn);
+                }
+                case 24 -> {
+                	System.out.println("-Read actors and their movies-");
                 	
                 	readActorsMovies(conn);
-
                 }
-
-                //
-                case 11 -> {
-                	System.out.println("-Show movies and their actors-");
+                case 25 -> {
+                	System.out.println("-Read movies and their actors-");
                 	
                 	readMoviesActors(conn);
-
                 }
 
                 default -> System.out.println("0");
@@ -310,6 +395,7 @@ public class main_class {
 		
 	}
 	
+	
 	// -- directors object --
 	private static void createDirector(Connection conn, String name, String city) {
 		directors myDirector = new directors(conn);
@@ -342,6 +428,7 @@ public class main_class {
 		System.out.println("Nr of deleted directors : " + nrDeleted);
 		
 	}
+	
 	
 	// -- genres object --
 	private static void createGenre(Connection conn, String genre) {
@@ -423,6 +510,7 @@ public class main_class {
 		
 	}
 	
+	
 	// -- movieactor_relations object --
 	private static void createActorToMovieRelation(Connection conn, String actor_name, String movie_title) {
 		relation_movieactor ma_rel = new relation_movieactor(conn);
@@ -441,6 +529,7 @@ public class main_class {
 		
 	}
 	
+	
 	// -- moviegenre_relations object --
 	private static void createGenreToMovieRelation(Connection conn, String genre, String movie_title) {
 		relation_moviegenre mg_rel = new relation_moviegenre(conn);
@@ -458,6 +547,7 @@ public class main_class {
 		System.out.println(jsonDoc);
 		
 	}
+	
 	
 	// -- vw_movieinfo object --
 	private static void readMovieInfo(Connection conn) {

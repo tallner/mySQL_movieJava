@@ -5,8 +5,8 @@ use movies;
 drop table if exists actor;
 create table if not exists actor(
 	actor_id int auto_increment,
-    name varchar(50) not null,
-    age varchar(50) not null,
+    name varchar(50) not null UNIQUE,
+    age varchar(50),
     skill varchar(50),
     primary key (actor_id)
 );
@@ -14,7 +14,7 @@ create table if not exists actor(
 drop table if exists director;
 create table if not exists director(
 	director_id int auto_increment,
-    name varchar(50) not null,
+    name varchar(50) not null UNIQUE,
     city varchar(50),
     primary key (director_id)
 );
@@ -22,7 +22,7 @@ create table if not exists director(
 drop table if exists genre;
 create table if not exists genre(
 	genre_id int auto_increment,
-    genre varchar(50) not null,
+    genre varchar(50) not null UNIQUE,
     primary key (genre_id)
 );
 

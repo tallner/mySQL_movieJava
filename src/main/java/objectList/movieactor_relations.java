@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import com.mysql.cj.jdbc.CallableStatement;
+
 import beans.movieactorBean;
 import helpers.jsonHelper;
 
@@ -13,6 +15,8 @@ public class movieactor_relations {
 	
 	private Connection _connection;
 	private ArrayList<movieactorBean> _movieactor_relations;
+	
+	private String bindActorToMovie = "call sp_addMovieToActor(?, ?)";
 	
 	public movieactor_relations(Connection cn) {
 		this._connection = cn;
@@ -35,6 +39,25 @@ public class movieactor_relations {
 		}
 		
 		return this._movieactor_relations;
+	}
+	
+	public int bindActorToMovie(String actor_name, String movie_title) {
+		int result = -1;
+		
+		if (actor_name.isBlank() || movie_title.isBlank()) return -1;
+		
+		try (CallableStatement cst = (CallableStatement) this._connection.prepareCall(bindActorToMovie)) {
+			cst.setString(1, actor_name);
+			cst.setString(2, movie_title);
+			result = cst.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			System.out.println("getActor exception for statement");
+			e.printStackTrace();
+		}
+		
+		return result;
 	}
 	
 	public String toJson() {

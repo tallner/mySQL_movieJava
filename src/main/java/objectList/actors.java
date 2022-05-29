@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-
 import beans.actorBean;
 import helpers.jsonHelper;
 
@@ -14,7 +13,7 @@ public class actors {
 	private Connection _connection;
 	private ArrayList<actorBean> _actors;
 	
-	private String createActor = "INSERT INTO actor (name,age,skill) VALUES (?,?,?)";
+	private String createActor = "INSERT INTO actor (name,age,skill) VALUES (?,?,?) ON DUPLICATE KEY UPDATE actor_id=actor_id";
 	private String readAllActors = "SELECT * FROM actor";
 	private String updateActor = "UPDATE actor SET age=?, skill=? WHERE name=?";
 	private String updateActorsSkill = "UPDATE actor SET skill=? WHERE name=?";

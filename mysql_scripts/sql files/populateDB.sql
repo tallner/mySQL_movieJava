@@ -38,16 +38,16 @@ insert into genre (genre) values ('western');
 
 -- adding movie
 -- sp_addMovie( IN movie_title varchar(50), IN movie_release_year int, IN movie_length int, IN director_name varchar(50), IN director_city varchar(50))
-call sp_addMovie('title1', 1979, 158, 'JohnC', 'LA');
-call sp_addMovie('title2', 1963, 102, 'Sylvester', null);
-call sp_addMovie('title3', 1971, 98, 'Mike', 'NY');
-call sp_addMovie('title4', 2009, 260, 'Adam', 'Hell');
-call sp_addMovie('title5', 1897, 45, 'Belinda', 'Heaven');
-call sp_addMovie('title6', 1979, 89, 'Christian', null);
-call sp_addMovie('title7', 1963, 102, 'Sylvester', null);
-call sp_addMovie('title8', 1963, 102, 'Sylvester', null);
-call sp_addMovie('title9', 1979, 158, 'JohnC', 'LA');
-call sp_addMovie('title10', 1963, 102, 'Sylvester', null);
+call sp_addMovie('title1', 1979, 158, 'JohnC');
+call sp_addMovie('title2', 1963, 102, 'Sylvester');
+call sp_addMovie('title3', 1971, 98, 'Mike');
+call sp_addMovie('title4', 2009, 260, 'Adam');
+call sp_addMovie('title5', 1897, 45, 'Belinda');
+call sp_addMovie('title6', 1979, 89, 'Christian');
+call sp_addMovie('title7', 1963, 102, 'Sylvester');
+call sp_addMovie('title8', 1963, 102, 'Sylvester');
+call sp_addMovie('title9', 1979, 158, 'JohnC');
+call sp_addMovie('title10', 1963, 102, 'Sylvester');
 
 -- adding actors to movie
 -- create procedure sp_addMovieToActor( IN actor_name varchar(50), IN movie_title varchar(50) )

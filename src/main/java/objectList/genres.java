@@ -42,8 +42,8 @@ public class genres {
 	}
 	
 	public ArrayList<genreBean> get_genres() {
-		//this._genres = new ArrayList<genreBean>();
-		try (PreparedStatement myQry = this._connection.prepareStatement(readAllGenre)) { //@ct why try inside ()?
+		
+		try (PreparedStatement myQry = this._connection.prepareStatement(readAllGenre)) { 
 			try (ResultSet rs = myQry.executeQuery()) {
 				
 				while(rs.next()) {  // rows

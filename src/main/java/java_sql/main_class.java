@@ -7,14 +7,14 @@ import java.util.Scanner;
 
 import helpers.databaseHelper;
 import helpers.jsonHelper;
-import objectList.actormovies;
+import objectList.vw_actormovies;
 import objectList.actors;
 import objectList.directors;
 import objectList.genres;
-import objectList.movieactor_relations;
-import objectList.movieactors;
-import objectList.moviegenre_relations;
-import objectList.movieinfo;
+import objectList.relation_movieactor;
+import objectList.vw_movieactors;
+import objectList.relation_moviegenre;
+import objectList.vw_movieinfo;
 import objectList.movies;
 
 public class main_class {
@@ -209,7 +209,7 @@ public class main_class {
                 case 10 -> {
                 	System.out.println("-Show actors and their movies-");
                 	
-                	showActorsMovies(conn);
+                	readActorsMovies(conn);
 
                 }
 
@@ -217,7 +217,7 @@ public class main_class {
                 case 11 -> {
                 	System.out.println("-Show movies and their actors-");
                 	
-                	showMoviesActors(conn);
+                	readMoviesActors(conn);
 
                 }
 
@@ -236,13 +236,13 @@ public class main_class {
 		
 		
 		// table connections
-		movieactor_relations myMovieactor_relations = new movieactor_relations(conn);
-		moviegenre_relations myMoviegenres_relations = new moviegenre_relations(conn);
+		relation_movieactor myMovieactor_relations = new relation_movieactor(conn);
+		relation_moviegenre myMoviegenres_relations = new relation_moviegenre(conn);
 		
 		// views
-		actormovies myActormovies = new actormovies(conn);
-		movieactors myMovieactors = new movieactors(conn);
-		movieinfo myMovieinfoView = new movieinfo(conn);
+		vw_actormovies myActormovies = new vw_actormovies(conn);
+		vw_movieactors myMovieactors = new vw_movieactors(conn);
+		vw_movieinfo myMovieinfoView = new vw_movieinfo(conn);
 
 		ArrayList<String> document = new ArrayList<String>();
 		document.add(myActors.toJson());
@@ -388,20 +388,20 @@ public class main_class {
 		directors myDirector = new directors(conn);
 		actors myActor = new actors(conn);
 		genres myGenres = new genres(conn);
-		movieactor_relations ma_rel = new movieactor_relations(conn);
-		moviegenre_relations mg_rel = new moviegenre_relations(conn);
+		relation_movieactor ma_rel = new relation_movieactor(conn);
+		relation_moviegenre mg_rel = new relation_moviegenre(conn);
 		
 		System.out.println(myActor.createActor(actor_name, 99, "noskilldefined")); //create actor and default age and skill if actor does not exist
 		System.out.println(myDirector.createDirector(director_name, "nocitydefined")); //create director and default city if director does not exist
 		System.out.println(myGenres.createGenre(genre)); //create genre if genre does not exist
 		System.out.println(myMovie.createMovie(movie_title,movie_release_year,movie_length,director_name));
-		System.out.println(ma_rel.bindActorToMovie(actor_name, movie_title)); // bind actor to movie
-		System.out.println(mg_rel.bindGenreToMovie(genre, movie_title)); // bind genre to movie
+		System.out.println(ma_rel.createActorToMovieRelation(actor_name, movie_title)); // bind actor to movie
+		System.out.println(mg_rel.createGenreToMovieRelation(genre, movie_title)); // bind genre to movie
 		
 	}
 	
 	private static void readMovies(Connection conn) {
-		movieinfo myMovies = new movieinfo(conn);
+		movies myMovies = new movies(conn);
 		String jsonDoc = "{" + myMovies.toJson() + "}";
 		
 		System.out.println(jsonDoc);
@@ -411,7 +411,8 @@ public class main_class {
 	private static void updateMovieLength(Connection conn, String title, int length_minutes) {
 		movies myMovie = new movies(conn);
 		
-		myMovie.updateMovieLength(title, length_minutes);
+		int nrUpdates = myMovie.updateMovieLength(title, length_minutes);
+		System.out.println("Nr of updated movies : " + nrUpdates);
 	}
 	
 	private static void deleteMovie(Connection conn, String movie_title) {
@@ -422,21 +423,62 @@ public class main_class {
 		
 	}
 	
-	// -- movieinfo object --
 	// -- movieactor_relations object --
-	// -- moviegenre_relations object --
+	private static void createActorToMovieRelation(Connection conn, String actor_name, String movie_title) {
+		relation_movieactor ma_rel = new relation_movieactor(conn);
+		
+		int nrCreated = ma_rel.createActorToMovieRelation(actor_name, movie_title);
+		
+		System.out.println("Nr of created relations : " + nrCreated);
+		
+	}
 	
-	// -- actormovies object --
-	private static void showActorsMovies(Connection conn) {
-		actormovies myActorMovies = new actormovies(conn);
+	private static void readActorToMovieRelations(Connection conn) {
+		relation_movieactor ma_rel = new relation_movieactor(conn);
+		String jsonDoc = "{" + ma_rel.toJson() + "}";
+		
+		System.out.println(jsonDoc);
+		
+	}
+	
+	// -- moviegenre_relations object --
+	private static void createGenreToMovieRelation(Connection conn, String genre, String movie_title) {
+		relation_moviegenre mg_rel = new relation_moviegenre(conn);
+		
+		int nrCreated = mg_rel.createGenreToMovieRelation(genre , movie_title);
+		
+		System.out.println("Nr of created relations : " + nrCreated);
+		
+	}
+	
+	private static void readGenreToMovieRelations(Connection conn) {
+		relation_movieactor ma_rel = new relation_movieactor(conn);
+		String jsonDoc = "{" + ma_rel.toJson() + "}";
+		
+		System.out.println(jsonDoc);
+		
+	}
+	
+	// -- vw_movieinfo object --
+	private static void readMovieInfo(Connection conn) {
+			vw_movieinfo myMovies = new vw_movieinfo(conn);
+			String jsonDoc = "{" + myMovies.toJson() + "}";
+			
+			System.out.println(jsonDoc);
+			
+		}
+		
+	// -- vw_actormovies object --
+	private static void readActorsMovies(Connection conn) {
+		vw_actormovies myActorMovies = new vw_actormovies(conn);
 		String jsonDoc = "{" + myActorMovies.toJson() + "}";
 		
 		System.out.println(jsonDoc);
 	}
 	
-	// -- movieactors object --
-	private static void showMoviesActors(Connection conn) {
-		movieactors myMovieActors = new movieactors(conn);
+	// -- vw_movieactors object --
+	private static void readMoviesActors(Connection conn) {
+		vw_movieactors myMovieActors = new vw_movieactors(conn);
 		String jsonDoc = "{" + myMovieActors.toJson() + "}";
 		
 		System.out.println(jsonDoc);

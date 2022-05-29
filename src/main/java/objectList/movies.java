@@ -60,8 +60,7 @@ public class movies {
 		if (this._movies.size() > 0) 
 			return this._movies;
 			
-		this._movies = new ArrayList<movieBean>(); //@ct why initiate a new list again?
-		try (PreparedStatement myQry = this._connection.prepareStatement(readAllMovies)) { //@ct why try inside ()?
+		try (PreparedStatement myQry = this._connection.prepareStatement(readAllMovies)) {
 			runQuery(myQry);
 		} catch (SQLException e) {
 			System.out.println("getMovies exception for statement");

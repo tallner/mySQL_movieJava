@@ -11,26 +11,26 @@ import com.mysql.cj.jdbc.CallableStatement;
 import beans.movieactorBean;
 import helpers.jsonHelper;
 
-public class movieactor_relations {
+public class relation_movieactor {
 	
 	private Connection _connection;
 	private ArrayList<movieactorBean> _movieactor_relations;
 	
-	private String bindActorToMovie = "call sp_addMovieToActor(?, ?)";
+	private String createActorToMovieRelation = "call sp_addMovieToActor(?, ?)";
+	private String readRelations = "SELECT * FROM movie_actor";
 	
-	public movieactor_relations(Connection cn) {
+	public relation_movieactor(Connection cn) {
 		this._connection = cn;
 		this._movieactor_relations = new ArrayList<movieactorBean>();
 		getMovieactor_relations();
 	}
 	
 	public ArrayList<movieactorBean> getMovieactor_relations(){
-		String qry = "select * from movie_actor";
 		
 		if (this._movieactor_relations.size() > 0)
 			return this._movieactor_relations;
 		
-		try (PreparedStatement myQry = this._connection.prepareStatement(qry)) {
+		try (PreparedStatement myQry = this._connection.prepareStatement(readRelations)) {
 			runQuery(myQry);
 			
 		} catch (SQLException e) {
@@ -41,12 +41,12 @@ public class movieactor_relations {
 		return this._movieactor_relations;
 	}
 	
-	public int bindActorToMovie(String actor_name, String movie_title) {
+	public int createActorToMovieRelation(String actor_name, String movie_title) {
 		int result = -1;
 		
 		if (actor_name.isBlank() || movie_title.isBlank()) return -1;
 		
-		try (CallableStatement cst = (CallableStatement) this._connection.prepareCall(bindActorToMovie)) {
+		try (CallableStatement cst = (CallableStatement) this._connection.prepareCall(createActorToMovieRelation)) {
 			cst.setString(1, actor_name);
 			cst.setString(2, movie_title);
 			result = cst.executeUpdate();

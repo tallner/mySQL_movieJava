@@ -9,25 +9,25 @@ import java.util.ArrayList;
 import beans.vw_actormoviesBean;
 import helpers.jsonHelper;
 
-public class actormovies {
+public class vw_actormovies {
 	
 	private Connection _connection;
 	private ArrayList<vw_actormoviesBean> _actormovies;
 	
-	public actormovies(Connection cn) {
+	private String readView = "SELECT * FROM vw_actorMovies";
+	
+	public vw_actormovies(Connection cn) {
 		this._connection = cn;
 		this._actormovies = new ArrayList<vw_actormoviesBean>();
 		getActorMovies();
 	}
 	
 	public ArrayList<vw_actormoviesBean> getActorMovies() {
-		String qry = "select * from vw_actorMovies";
 
 		if (this._actormovies.size() > 0) 
 			return this._actormovies;
 			
-		this._actormovies = new ArrayList<vw_actormoviesBean>(); //@ct why initiate a new list again?
-		try (PreparedStatement myQry = this._connection.prepareStatement(qry)) { //@ct why try inside ()?
+		try (PreparedStatement myQry = this._connection.prepareStatement(readView)) {
 			runQuery(myQry);
 		} catch (SQLException e) {
 			System.out.println("getActorMovies exception for statement");

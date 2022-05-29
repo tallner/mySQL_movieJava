@@ -31,8 +31,7 @@ public class actors {
 		if (this._actors.size() > 0) 
 			return this._actors;
 			
-		this._actors = new ArrayList<actorBean>(); //@ct why initiate a new list again?
-		try (PreparedStatement myQry = this._connection.prepareStatement(readAllActors)) { //@ct why try inside ()?
+		try (PreparedStatement myQry = this._connection.prepareStatement(readAllActors)) {
 			runQuery(myQry);
 		} catch (SQLException e) {
 			System.out.println("getActors exception for statement");

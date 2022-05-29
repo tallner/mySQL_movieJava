@@ -46,9 +46,9 @@ public class directors {
 		if (this._directors.size() > 0) 
 			return this._directors;
 			
-		this._directors = new ArrayList<directorBean>();
+		
 		try {
-			PreparedStatement myQry = this._connection.prepareStatement(readAllDirectors);//@ct skillnad mot att göra det i parantes?
+			PreparedStatement myQry = this._connection.prepareStatement(readAllDirectors);
 			ResultSet rs = myQry.executeQuery();
 			while(rs.next()) {  // rows
 				this._directors.add(buildAddress(rs));

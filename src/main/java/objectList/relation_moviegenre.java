@@ -11,26 +11,26 @@ import com.mysql.cj.jdbc.CallableStatement;
 import beans.moviegenreBean;
 import helpers.jsonHelper;
 
-public class moviegenre_relations {
+public class relation_moviegenre {
 	
 	private Connection _connection;
 	private ArrayList<moviegenreBean> _moviegenre_relations;
 	
-	private String bindGenreToMovie = "call sp_addGenreToMovie(?, ?)";
+	private String createGenreToMovieRelation = "call sp_addGenreToMovie(?, ?)";
+	private String readRelations = "SELECT * FROM movie_genre";
 	
-	public moviegenre_relations(Connection cn) {
+	public relation_moviegenre(Connection cn) {
 		this._connection = cn;
 		this._moviegenre_relations = new ArrayList<moviegenreBean>();
 		getMoviegenre_relations();
 	}
 	
 	public ArrayList<moviegenreBean> getMoviegenre_relations(){
-		String qry = "select * from movie_genre";
 		
 		if (this._moviegenre_relations.size() > 0)
 			return this._moviegenre_relations;
 		
-		try (PreparedStatement myQry = this._connection.prepareStatement(qry)) {
+		try (PreparedStatement myQry = this._connection.prepareStatement(readRelations)) {
 			runQuery(myQry);
 			
 		} catch (SQLException e) {
@@ -41,12 +41,12 @@ public class moviegenre_relations {
 		return this._moviegenre_relations;
 	}
 	
-	public int bindGenreToMovie(String genre, String movie_title) {
+	public int createGenreToMovieRelation(String genre, String movie_title) {
 		int result = -1;
 		
 		if (genre.isBlank() || movie_title.isBlank()) return -1;
 		
-		try (CallableStatement cst = (CallableStatement) this._connection.prepareCall(bindGenreToMovie)) {
+		try (CallableStatement cst = (CallableStatement) this._connection.prepareCall(createGenreToMovieRelation)) {
 			cst.setString(1, genre);
 			cst.setString(2, movie_title);
 			result = cst.executeUpdate();

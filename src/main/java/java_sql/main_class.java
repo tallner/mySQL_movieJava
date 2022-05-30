@@ -21,38 +21,11 @@ public class main_class {
 	public static void main(String[] args) throws SQLException {
 		Connection conn = databaseHelper.DbConnect("movies");
 		
-		
-		//ShowAllTables(conn);
-		
-		// updateActor(conn, "Hedvig", "Dancing", 45);
-		
-		//ShowAllTables(conn);
-		
-		//createActor(conn,"Nisse",67,"driving");
-		
-		//ShowAllTables(conn);
-		
-		//deleteActor(conn, "Sean");
-		
-		//ShowAllTables(conn);
-		
-		//readActors(conn);
-		
-		// updateActorsSkill(conn, "Nisse", "boxing");
-		
-		// updateActorsAge(conn, "Nisse", 0);
-		
-		// createMovie(conn, "testFilm", 1919, 56, "Christian", "Fredrik");
-		// createMovie(conn, "testFilm", 1919, 56, "Christian", "Cecilia");
-		
-
 		//simple UI to test the methods
-		
 		userUI(conn);
 		
 		conn.close();
-        
-		
+	
 	}
 	
 	private static void userUI(Connection conn) {
@@ -67,6 +40,8 @@ public class main_class {
             System.out.println(" |**********************| ");
             System.out.println(" 0. Show all tables"); // all tables in database
             
+            System.out.println("-Actors-------------------------------"); //
+            
             //objects
             System.out.println(" 1. Create new actor "); //
             System.out.println(" 2. Read all actors"); //
@@ -75,20 +50,28 @@ public class main_class {
             System.out.println(" 5. Update an actors skill"); //
             System.out.println(" 6. Delete an actor"); //
             
+            System.out.println("-Directors-------------------------------"); //
+            
             System.out.println(" 7. Create new director "); //
             System.out.println(" 8. Read all director"); //
-            System.out.println(" 9. Update a director city"); //
+            System.out.println(" 9. Update a directors city"); //
             System.out.println(" 10. Delete a director"); //
+            
+            System.out.println("-Genres-------------------------------"); //
             
             System.out.println(" 11. Create new genre "); //
             System.out.println(" 12. Read all genre"); //
             System.out.println(" 13. Update a genre"); //
             System.out.println(" 14. Delete a genre"); //
+            
+            System.out.println("-Movies-------------------------------"); //
 
             System.out.println(" 15. Create movie"); //
             System.out.println(" 16. Read movies");//
-            System.out.println(" 17. Update a movie length"); //
+            System.out.println(" 17. Update a movies length"); //
             System.out.println(" 18. Delete movie");//
+            
+            System.out.println("-Relations-------------------------------"); //
             
             //relations
             System.out.println(" 19. Create actor to movie relation");//
@@ -97,10 +80,14 @@ public class main_class {
             System.out.println(" 21. Create genre to movie relation");//
             System.out.println(" 22. Read genre to movie relation");//
             
+            System.out.println("-Views-------------------------------"); //
+            
             //views
             System.out.println(" 23. Read movie information ");//
             System.out.println(" 24. Read actors and their movies"); //
             System.out.println(" 25. Read movies and their actors"); //
+            
+            System.out.println("--------------------------------"); //
             
 
             System.out.println(" 100. Exit ");
@@ -541,7 +528,7 @@ public class main_class {
 	}
 	
 	private static void readGenreToMovieRelations(Connection conn) {
-		relation_movieactor ma_rel = new relation_movieactor(conn);
+		relation_moviegenre ma_rel = new relation_moviegenre(conn);
 		String jsonDoc = "{" + ma_rel.toJson() + "}";
 		
 		System.out.println(jsonDoc);

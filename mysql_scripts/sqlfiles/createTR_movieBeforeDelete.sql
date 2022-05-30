@@ -1,7 +1,7 @@
 DELIMITER $$
-CREATE TRIGGER actor_before_delete
+CREATE TRIGGER movie_before_delete
 BEFORE DELETE
-ON actor
+ON movie
 FOR EACH ROW
 BEGIN
 DELETE FROM movie_actor WHERE movie_id=OLD.movie_id;

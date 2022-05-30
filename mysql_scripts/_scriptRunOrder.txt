@@ -1,9 +1,7 @@
 createDB 				--> create database and tables
 createTR_actorAge			--> trigger to check limits of actor age
-createTR_genre				--> trigger for checking correct genre is entered
-createTR_genre				--> trigger for checking correct genre is entered
-createTR_createTR_genreBeforeDelete	--> trigger for deleting genre_id in relation table first
-createTR_createTR_actorBeforeDelete	--> trigger for deleting actor_id in relation table first
+createTR_genreBeforeDelete	--> trigger for deleting genre_id in relation table first
+createTR_actorBeforeDelete	--> trigger for deleting actor_id in relation table first
 createSP_addMovie			--> stored procedure for adding a movie
 createSP_addGenreToMovie		--> stored procedure for adding genre to movie
 createSP_addMovieToActor		--> stored procedure for adding movie to actor
@@ -11,3 +9,17 @@ populateDB				--> add content to database
 createVW_movieInfo			--> view for short info about the movie
 createVW_actorMovies			--> view for what movies an actor is in
 createVW_movieActors			--> view for what actors are in the movie
+
+
+
+mysql --user="root" --database="movies" --password="tallner" < "C:\ProgrammingCourses\grit\databas\mySQL_movieJava\mysql_scripts\sqlfiles\createDB.sql"
+mysql --user="root" --database="movies" --password="tallner" < "C:\ProgrammingCourses\grit\databas\mySQL_movieJava\mysql_scripts\sqlfiles\createTR_actorAge.sql"
+mysql --user="root" --database="movies" --password="tallner" < "C:\ProgrammingCourses\grit\databas\mySQL_movieJava\mysql_scripts\sqlfiles\createTR_genreBeforeDelete.sql"
+mysql --user="root" --database="movies" --password="tallner" < "C:\ProgrammingCourses\grit\databas\mySQL_movieJava\mysql_scripts\sqlfiles\createTR_actorBeforeDelete.sql"
+mysql --user="root" --database="movies" --password="tallner" < "C:\ProgrammingCourses\grit\databas\mySQL_movieJava\mysql_scripts\sqlfiles\createSP_addMovie.sql"
+mysql --user="root" --database="movies" --password="tallner" < "C:\ProgrammingCourses\grit\databas\mySQL_movieJava\mysql_scripts\sqlfiles\createSP_addGenreToMovie.sql"
+mysql --user="root" --database="movies" --password="tallner" < "C:\ProgrammingCourses\grit\databas\mySQL_movieJava\mysql_scripts\sqlfiles\createSP_addMovieToActor.sql"
+mysql --user="root" --database="movies" --password="tallner" < "C:\ProgrammingCourses\grit\databas\mySQL_movieJava\mysql_scripts\sqlfiles\populateDB.sql"
+mysql --user="root" --database="movies" --password="tallner" < "C:\ProgrammingCourses\grit\databas\mySQL_movieJava\mysql_scripts\sqlfiles\createVW_movieInfo.sql"
+mysql --user="root" --database="movies" --password="tallner" < "C:\ProgrammingCourses\grit\databas\mySQL_movieJava\mysql_scripts\sqlfiles\createVW_actorMovies.sql"
+mysql --user="root" --database="movies" --password="tallner" < "C:\ProgrammingCourses\grit\databas\mySQL_movieJava\mysql_scripts\sqlfiles\createVW_movieActors.sql"

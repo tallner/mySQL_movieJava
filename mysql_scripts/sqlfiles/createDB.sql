@@ -35,9 +35,7 @@ create table if not exists movie(
     release_year int not null,
     length_minutes int not null,
     primary key (movie_id),
-    -- foreign key (actor_id) references actor (actor_id),
     foreign key (director_id) references director (director_id)
-    -- foreign key (genre_id) references genre (genre_id)
 );
 
 drop table if exists movie_actor;

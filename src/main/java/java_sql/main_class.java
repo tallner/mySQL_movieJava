@@ -300,8 +300,8 @@ public class main_class {
                 }
                 
                 case 99 -> {
-                	System.out.println("-This story creates a new movie for the database "
-                			+ "and makes some corrections to errors that later pops up-");
+                	System.out.println("--This story creates a new movie for the database "
+                			+ "and makes some corrections to errors that later pops up--" + "/r/n");
                 	
                 	story(conn);
                 		
@@ -353,40 +353,59 @@ public class main_class {
 		//this story creates a new movie for the database and makes some corrections to errors that later pops up
 		
 		//check if the movie exists in the current list
-		System.out.println("Check if the NewMovie was created");
+		System.out.println("A person checks if the NewMovie is in the database by reading all titles and info.");
 		readMovies(conn);
 		
-		//no it does not --> create the movie
+		System.out.println();
+		
+		//no it was not --> create the movie
 		//(title,year,length,director,actor,genre)
-		System.out.println("It was not so now was created ");
+		System.out.println("The person could not find it and tries to create it ");
 		createMovie(conn, "myNewMovie", 2022, 125, "JoeTheDirector", "JaneTheActor", "scifi");
 		//if the director, actor and genre does not exist it will be automatically created
 		//Details about director and actor is currently secret and will later be changed
 		
-		//all movie info is read to an website with a view
-		System.out.println("Check again...");
-		readMovies(conn);
+		System.out.println();
+		
+		//the person reads the movie to the website with a view to see if all correct
+		System.out.println("The person reads the movie to the website with a view to see if all correct");
+		readMovieInfo(conn);
+
+		System.out.println();
 		
 		//when it came to website the length is wrong and needs update
 		System.out.println("Length was reported wrong from a website user and needs an update");
 		updateMovieLength(conn, "myNewMovie", 152);
-		System.out.println("Check length...");
+		
+		System.out.println();
+		
+		System.out.println("The person reads the info again and checks the length");
 		readMovies(conn);
 		
+		System.out.println();
+		
 		//someone reads more about the actor and notice both age and skill is wrong
-		System.out.println("Someone reads more about the actor and notice both age and skill is wrong");
+		System.out.println("A user reads more about the actor and notice both age and skill is wrong");
 		updateActor(conn, "JanesTheActor", "guitarr", 28);
 
+		System.out.println();
+		
 		System.out.println("Later on the director moves to a new city and the location is no longer secret");
 		updateDirectorCity(conn, "JoeTheDirector", "Flyinge");
 		
-		System.out.println("There is a scandal and the actor is not the real actor");
+		System.out.println();
+		
+		System.out.println("There is a scandal in the movieindustry and the actor is not the real actor");
 		System.out.println("Actor needs to be deleted from the database");
 		deleteActor(conn, "JaneTheActor");
+		
+		System.out.println();
 		
 		System.out.println("The real actor is now added and connected to the movie");
 		createActor(conn, "JanneTheActor", 82, "drums");
 		createActorToMovieRelation(conn, "JanneTheActor", "myNewMovie");
+		
+		System.out.println("--END OF STORY--");
 		
 		
 
@@ -398,7 +417,8 @@ public class main_class {
 		actors myActor = new actors(conn);
 		
 		int nrCreated = myActor.createActor(name, age, skill);
-		System.out.println("Nr of created actors : " + nrCreated);
+		if (nrCreated==-1) System.out.println("Result: "+" Actor not created, check inputs");
+		else	System.out.println("Result: "+"Actor: "+name+" succesfully created with age="+age+" and skill="+skill);
 		
 	}
 	
@@ -414,7 +434,8 @@ public class main_class {
 		actors myActors = new actors(conn);
 
 		int nrUpdates = myActors.updateActor(name, newSkill, newAge, "all");
-		System.out.println("Nr of updated actors : " + nrUpdates);
+		if (nrUpdates==-1) System.out.println("Result: "+" Actor not updated, check inputs");
+		else	System.out.println("Result: "+"Actor: "+name+" succesfully updated age="+newAge+" and skill="+newSkill);
 				
 	}
 	
@@ -422,7 +443,10 @@ public class main_class {
 		actors myActors = new actors(conn);
 
 		int nrUpdates = myActors.updateActor(name, newSkill, 0, "skills");
-		System.out.println("Nr of updated actors : " + nrUpdates);
+				
+		if (nrUpdates==-1) System.out.println("Result: "+"Actor not updated, check inputs");
+		else	System.out.println("Result: "+"Actor: "+name+" new skill="+newSkill);
+		
 				
 	}
 	
@@ -430,7 +454,8 @@ public class main_class {
 		actors myActors = new actors(conn);
 
 		int nrUpdates = myActors.updateActor(name, "", newAge, "age");
-		System.out.println("Nr of updated actors : " + nrUpdates);
+		if (nrUpdates==-1) System.out.println("Result: "+"Actor not updated, check inputs");
+		else	System.out.println("Result: "+"Actor: "+name+" new age="+newAge);
 				
 	}
 	
@@ -438,7 +463,8 @@ public class main_class {
 		actors myActor = new actors(conn);
 		
 		int nrDeleted = myActor.deleteActor(name);
-		System.out.println("Nr of deleted actors : " + nrDeleted);
+		if (nrDeleted==-1) System.out.println("Result: "+"Actor not deleted, check inputs");
+		else	System.out.println("Result: "+"Actor: "+name+" succesfully deleted");
 		
 	}
 	
@@ -448,7 +474,8 @@ public class main_class {
 		directors myDirector = new directors(conn);
 		
 		int nrCreated = myDirector.createDirector(name, city);
-		System.out.println("Nr of created directors : " + nrCreated);
+		if (nrCreated==-1) System.out.println("Result: "+"Director not created, check inputs");
+		else	System.out.println("Result: "+"Director: "+name+" created");
 		
 	}
 	
@@ -464,7 +491,8 @@ public class main_class {
 		directors myDirector = new directors(conn);
 
 		int nrUpdates = myDirector.updateDirector(name, newCity);
-		System.out.println("Nr of updated directors : " + nrUpdates);
+		if (nrUpdates==-1) System.out.println("Result: "+"Director not updated, check inputs");
+		else	System.out.println("Result: "+"Director: "+name+" new city="+newCity);
 				
 	}
 	
@@ -472,7 +500,8 @@ public class main_class {
 		directors myDirector = new directors(conn);
 		
 		int nrDeleted = myDirector.deleteDirector(name);
-		System.out.println("Nr of deleted directors : " + nrDeleted);
+		if (nrDeleted==-1) System.out.println("Result: "+"Director not deleted, check inputs");
+		else	System.out.println("Result: "+"Director: "+name+" deleted");
 		
 	}
 	
@@ -482,7 +511,8 @@ public class main_class {
 		genres myGenre = new genres(conn);
 		
 		int nrCreated = myGenre.createGenre(genre);
-		System.out.println("Nr of created genres : " + nrCreated);
+		if (nrCreated==-1) System.out.println("Result: "+"Genre not created, check inputs");
+		else	System.out.println("Result: "+"Genre: "+genre+" created");
 		
 	}
 	
@@ -498,16 +528,17 @@ public class main_class {
 		genres myGenre = new genres(conn);
 
 		int nrUpdates = myGenre.updateGenre(genre, newGenre);
-		System.out.println("Nr of updated genres : " + nrUpdates);
+		if (nrUpdates==-1) System.out.println("Result: "+"Genre not updated, check inputs");
+		else	System.out.println("Result: "+"Genre: "+genre+" updated to "+newGenre);
 				
 	}
 	
-	private static void deleteGenre(Connection conn, String name) {
+	private static void deleteGenre(Connection conn, String genre) {
 		genres myGenre = new genres(conn);
 		
-		int nrDeleted = myGenre.deleteGenre(name);
-		System.out.println("Nr of deleted genres : " + nrDeleted);
-		
+		int nrDeleted = myGenre.deleteGenre(genre);
+		if (nrDeleted==-1) System.out.println("Result: "+"Genre not deleted, check inputs");
+		else	System.out.println("Result: "+"Genre: "+genre+" deleted");
 	}
 		
 
@@ -525,12 +556,24 @@ public class main_class {
 		relation_movieactor ma_rel = new relation_movieactor(conn);
 		relation_moviegenre mg_rel = new relation_moviegenre(conn);
 		
-		System.out.println(myActor.createActor(actor_name, 99, "noskilldefined")); //create actor and default age and skill if actor does not exist
-		System.out.println(myDirector.createDirector(director_name, "nocitydefined")); //create director and default city if director does not exist
-		System.out.println(myGenres.createGenre(genre)); //create genre if genre does not exist
-		System.out.println(myMovie.createMovie(movie_title,movie_release_year,movie_length,director_name));
-		System.out.println(ma_rel.createActorToMovieRelation(actor_name, movie_title)); // bind actor to movie
-		System.out.println(mg_rel.createGenreToMovieRelation(genre, movie_title)); // bind genre to movie
+		myActor.createActor(actor_name, 99, "noskilldefined"); //create actor and default age and skill if actor does not exist
+		myDirector.createDirector(director_name, "nocitydefined"); //create director and default city if director does not exist
+		myGenres.createGenre(genre); //create genre if genre does not exist
+		
+		int nrCreated = myMovie.createMovie(movie_title,movie_release_year,movie_length,director_name);
+		if (nrCreated==-1) System.out.println("Result: "+"Movie not created, check inputs");
+		else if (nrCreated == -2) System.out.println("Result: "+"Movie title already exists!");
+		else {
+			System.out.println("Movie: "+movie_title+" created");
+			
+			ma_rel.createActorToMovieRelation(actor_name, movie_title); // bind actor to movie
+			mg_rel.createGenreToMovieRelation(genre, movie_title); // bind genre to movie
+			
+			
+		}
+		
+		
+		
 		
 	}
 	
@@ -542,19 +585,20 @@ public class main_class {
 		
 	}
 	
-	private static void updateMovieLength(Connection conn, String title, int length_minutes) {
+	private static void updateMovieLength(Connection conn, String movie_title, int length_minutes) {
 		movies myMovie = new movies(conn);
 		
-		int nrUpdates = myMovie.updateMovieLength(title, length_minutes);
-		System.out.println("Nr of updated movies : " + nrUpdates);
+		int nrUpdates = myMovie.updateMovieLength(movie_title, length_minutes);
+		if (nrUpdates==-1) System.out.println("Result: "+"Movie not updated, check inputs");
+		else	System.out.println("Result: "+"Movie: "+movie_title+" length updated to "+length_minutes);
 	}
 	
 	private static void deleteMovie(Connection conn, String movie_title) {
 		movies myMovie = new movies(conn);
 		
 		int nrDeleted = myMovie.deleteMovie(movie_title);
-		System.out.println("Nr of deleted movies : " + nrDeleted);
-		
+		if (nrDeleted==-1) System.out.println("Result: "+"Movie not deleted, check inputs");
+		else	System.out.println("Result: "+"Movie: "+movie_title+" deleted");		
 	}
 	
 	
@@ -563,9 +607,6 @@ public class main_class {
 		relation_movieactor ma_rel = new relation_movieactor(conn);
 		
 		int nrCreated = ma_rel.createActorToMovieRelation(actor_name, movie_title);
-		
-		System.out.println("Nr of created relations : " + nrCreated);
-		
 	}
 	
 	private static void readActorToMovieRelations(Connection conn) {
@@ -583,7 +624,6 @@ public class main_class {
 		
 		int nrCreated = mg_rel.createGenreToMovieRelation(genre , movie_title);
 		
-		System.out.println("Nr of created relations : " + nrCreated);
 		
 	}
 	

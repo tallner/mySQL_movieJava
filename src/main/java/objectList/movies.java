@@ -49,7 +49,8 @@ public class movies {
 			
 			
 		}catch (SQLIntegrityConstraintViolationException e) {
-			System.out.println(e.getMessage());
+			//System.out.println(e.getMessage());
+			result = -2;
 		
 		}
 		catch (SQLException e) {

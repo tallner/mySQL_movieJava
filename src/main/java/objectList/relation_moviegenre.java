@@ -54,7 +54,8 @@ public class relation_moviegenre {
 			
 			
 		}catch (SQLIntegrityConstraintViolationException e) {
-			System.out.println(e.getMessage());
+			result = -2;
+			
 		}catch (SQLException e) {
 			System.out.println("createGenreToMovieRelation exception for statement");
 			e.printStackTrace();

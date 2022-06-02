@@ -58,7 +58,8 @@ public class relation_movieactor {
 			
 			
 		}catch (SQLIntegrityConstraintViolationException e) {
-			System.out.println(e.getMessage());
+			result = -2;
+			
 		} catch (SQLException e) {
 			System.out.println("createActorToMovieRelation exception for statement");
 			e.printStackTrace();

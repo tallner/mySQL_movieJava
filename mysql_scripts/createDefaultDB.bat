@@ -1,7 +1,7 @@
 @ECHO OFF
 
 SET mySQLpath="C:\Program Files\MySQL\MySQL Workbench 8.0\mysql.exe"
-SET mySQLfilePath=C:\ProgrammingCourses\grit\databas\mySQL_movieJava\mysql_scripts\sqlfiles
+SET mySQLfilePath=.\sqlfiles
 SET myPW="tallner"
 SET myUS="root"
 SET myDB="movies"

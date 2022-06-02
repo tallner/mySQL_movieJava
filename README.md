@@ -13,5 +13,9 @@ If you want to run other SQL query files than [sqlfiles](https://github.com/tall
 
 
 ## Run the JAVA application
-Start the application in for example Eclipse  
-
+* Start the application in, for example, Eclipse  
+* In Eclipse, Run As Java Application  
+* You will get a simple UI in the Console  
+* Select 99 to run a pre-made story  
+* Select 1-25 to test each method separate - NOTE! SPACE INPUTS NOT TAKEN CARE OF!
+* Select 100 to exit

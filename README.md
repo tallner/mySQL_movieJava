@@ -9,6 +9,8 @@ Make sure to modify following in the script:
 * myPW - the password to your database
 * myUS - your username to your database
 
+[ER Diagram](https://github.com/tallner/mySQL_movieJava/blob/main/mysql_scripts/ERdiagram.drawio.pdf)  
+
 If you want to run other SQL query files than [sqlfiles](https://github.com/tallner/mySQL_movieJava/tree/main/mysql_scripts/sqlfiles) then you also need to change the filepath, mySQLfilePath, and filenames in [the script](https://github.com/tallner/mySQL_movieJava/blob/main/mysql_scripts/createDefaultDB.bat)
 
 

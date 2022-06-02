@@ -40,6 +40,12 @@ public class main_class {
             System.out.println(" |**********************| ");
             System.out.println(" 0. Show all tables"); // all tables in database
             
+            
+            System.out.println("-The story-------------------------------"); //
+            System.out.println(" 99. Run the story"); // all tables in database
+            
+            
+            
             System.out.println("-Actors-------------------------------"); //
             
             //objects
@@ -292,6 +298,14 @@ public class main_class {
                 	
                 	readMoviesActors(conn);
                 }
+                
+                case 99 -> {
+                	System.out.println("-This story creates a new movie for the database "
+                			+ "and makes some corrections to errors that later pops up-");
+                	
+                	story(conn);
+                		
+                }
 
                 default -> System.out.println("0");
             }
@@ -333,7 +347,53 @@ public class main_class {
 		
 	}
 	
-	// -- actors object KLAR--
+	//Story
+	private static void story(Connection conn) {
+		
+		//this story creates a new movie for the database and makes some corrections to errors that later pops up
+		
+		//check if the movie exists in the current list
+		System.out.println("Check if the NewMovie was created");
+		readMovies(conn);
+		
+		//no it does not --> create the movie
+		//(title,year,length,director,actor,genre)
+		System.out.println("It was not so now was created ");
+		createMovie(conn, "myNewMovie", 2022, 125, "JoeTheDirector", "JaneTheActor", "scifi");
+		//if the director, actor and genre does not exist it will be automatically created
+		//Details about director and actor is currently secret and will later be changed
+		
+		//all movie info is read to an website with a view
+		System.out.println("Check again...");
+		readMovies(conn);
+		
+		//when it came to website the length is wrong and needs update
+		System.out.println("Length was reported wrong from a website user and needs an update");
+		updateMovieLength(conn, "myNewMovie", 152);
+		System.out.println("Check length...");
+		readMovies(conn);
+		
+		//someone reads more about the actor and notice both age and skill is wrong
+		System.out.println("Someone reads more about the actor and notice both age and skill is wrong");
+		updateActor(conn, "JanesTheActor", "guitarr", 28);
+
+		System.out.println("Later on the director moves to a new city and the location is no longer secret");
+		updateDirectorCity(conn, "JoeTheDirector", "Flyinge");
+		
+		System.out.println("There is a scandal and the actor is not the real actor");
+		System.out.println("Actor needs to be deleted from the database");
+		deleteActor(conn, "JaneTheActor");
+		
+		System.out.println("The real actor is now added and connected to the movie");
+		createActor(conn, "JanneTheActor", 82, "drums");
+		createActorToMovieRelation(conn, "JanneTheActor", "myNewMovie");
+		
+		
+
+		
+	}
+	
+	// -- actors object --
 	private static void createActor(Connection conn, String name, int age, String skill) {
 		actors myActor = new actors(conn);
 		

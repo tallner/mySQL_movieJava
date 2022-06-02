@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 
 import com.mysql.cj.jdbc.CallableStatement;
@@ -52,8 +53,10 @@ public class relation_moviegenre {
 			result = cst.executeUpdate();
 			
 			
-		} catch (SQLException e) {
-			System.out.println("getActor exception for statement");
+		}catch (SQLIntegrityConstraintViolationException e) {
+			System.out.println(e.getMessage());
+		}catch (SQLException e) {
+			System.out.println("createGenreToMovieRelation exception for statement");
 			e.printStackTrace();
 		}
 		

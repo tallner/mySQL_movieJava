@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 
 import com.mysql.cj.jdbc.CallableStatement;
@@ -18,7 +19,7 @@ public class movies {
 	//call sp_addMovie(movie_title, movie_release_year, movie_length, director_name, director_city);
 	private String createMovie = "{call sp_addMovie(?, ?, ?, ?)}";
 	private String readAllMovies = "SELECT * FROM movie";
-	private String updateMovieLength = "UPDATE movie SET lenght_minutes=? WHERE title=?";
+	private String updateMovieLength = "UPDATE movie SET length_minutes=? WHERE title=?";
 	private String deleteMovie = "DELETE FROM movie WHERE title=?";
 
 	
@@ -29,7 +30,6 @@ public class movies {
 		
 	}
 	
-
 	public int createMovie(
 			String movie_title,int movie_release_year,int movie_length,
 			String director_name) {
@@ -48,7 +48,11 @@ public class movies {
 			result = cst.executeUpdate();
 			
 			
-		} catch (SQLException e) {
+		}catch (SQLIntegrityConstraintViolationException e) {
+			System.out.println(e.getMessage());
+		
+		}
+		catch (SQLException e) {
 			System.out.println("createMovie exception for statement");
 			e.printStackTrace();
 		}

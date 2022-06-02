@@ -31,7 +31,7 @@ drop table if exists movie;
 create table if not exists movie(
 	movie_id int auto_increment,
     director_id int not null,
-    title varchar(50) not null,
+    title varchar(50) not null UNIQUE,
     release_year int not null,
     length_minutes int not null,
     primary key (movie_id),
@@ -43,6 +43,7 @@ create table if not exists movie_actor(
     character_name varchar(50),
     movie_id int not null,
     actor_id int not null,
+    unique key (movie_id, actor_id),
     foreign key (movie_id) references movie (movie_id),
     foreign key (actor_id) references actor (actor_id)
 );
@@ -51,6 +52,7 @@ drop table if exists movie_genre;
 create table if not exists movie_genre(
     movie_id int not null,
     genre_id int not null,
+    unique key (movie_id, genre_id),
     foreign key (movie_id) references movie (movie_id),
     foreign key (genre_id) references genre (genre_id)
 );

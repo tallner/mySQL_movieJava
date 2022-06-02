@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 
 import com.mysql.cj.jdbc.CallableStatement;
@@ -33,7 +34,11 @@ public class relation_movieactor {
 		try (PreparedStatement myQry = this._connection.prepareStatement(readRelations)) {
 			runQuery(myQry);
 			
-		} catch (SQLException e) {
+		} 
+		
+		
+		
+		catch (SQLException e) {
 			System.out.println("getMovieactor_relations exception for statement");
 			e.printStackTrace();
 		}
@@ -52,8 +57,10 @@ public class relation_movieactor {
 			result = cst.executeUpdate();
 			
 			
+		}catch (SQLIntegrityConstraintViolationException e) {
+			System.out.println(e.getMessage());
 		} catch (SQLException e) {
-			System.out.println("getActor exception for statement");
+			System.out.println("createActorToMovieRelation exception for statement");
 			e.printStackTrace();
 		}
 		
